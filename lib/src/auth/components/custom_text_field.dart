@@ -1,25 +1,55 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final IconData icon;
   final String label;
-  final bool isObscure;
+  final bool isSecret;
 
-  const CustomTextField({Key? key, required this.icon, required this.label,  this.isObscure = false})
+   const CustomTextField(
+      {Key? key,
+      required this.icon,
+      required this.label,
+      this.isSecret = false})
       : super(key: key);
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+
+  bool isObscure = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isObscure = widget.isSecret;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 15),
-        child: TextFormField(
-          obscureText: this.isObscure,
-          decoration: InputDecoration(
-              icon: Icon(this.icon),
-              labelText: this.label,
-              isDense: true,
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(18))),
+        padding: const EdgeInsets.only(bottom: 12),
+        child: SizedBox(
+          height: 45,
+          child: TextFormField(
+            obscureText: isObscure,
+            decoration: InputDecoration(
+                prefixIcon: Icon(this.widget.icon),
+                suffixIcon: widget.isSecret ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isObscure = !isObscure;
+                    });
+                  },
+                  icon: Icon( isObscure ? Icons.visibility: Icons.visibility_off),
+                ) : null,
+                labelText: this.widget.label,
+                isDense: true,
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(18))),
+          ),
         ));
   }
 }
