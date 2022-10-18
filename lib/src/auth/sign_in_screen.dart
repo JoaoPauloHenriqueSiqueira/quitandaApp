@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:quitanda/src/auth/components/custom_text_field.dart';
+import 'package:quitanda/src/auth/sign_up_screen.dart';
+import 'package:quitanda/src/base/base_screen.dart';
 import 'package:quitanda/src/folder/custom_colors.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -13,6 +15,8 @@ class SignInScreen extends StatelessWidget {
     
     return Scaffold(
       backgroundColor: CustomColors.customSwatchCOlor,
+
+      // LOGO SCREEN
       body: SingleChildScrollView(
         child: SizedBox(
           height: size.height,
@@ -22,6 +26,8 @@ class SignInScreen extends StatelessWidget {
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
+                  //LOGO
                   Text.rich(TextSpan(style: TextStyle(fontSize: 40), children: [
                     TextSpan(
                         text: "Green",
@@ -32,7 +38,7 @@ class SignInScreen extends StatelessWidget {
                         style: TextStyle(color: CustomColors.customContrastColor))
                   ])),
 
-                  //Categories
+                  //CATEGORIES
                   SizedBox(
                     height: 30,
                     child: DefaultTextStyle(
@@ -50,7 +56,8 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ],
               )),
-              //Form login
+
+              //FORM LOGIN
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 30),
                 decoration: const BoxDecoration(
@@ -60,15 +67,24 @@ class SignInScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    //Email
+                    //INPUT EMAIL
                     CustomTextField(icon: Icons.mail, label: "Email"),
-                    //password
+
+                    //INPUT PASSWORD
                     CustomTextField(
                         icon: Icons.lock, label: "Password", isSecret: true),
+
+                    //ENTER BUTTON
                     SizedBox(
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (c){
+                                return BaseScreen();
+                              })
+                            );
+                          },
                           child: const Text(
                             "Enter",
                             style: TextStyle(fontSize: 18),
@@ -77,6 +93,8 @@ class SignInScreen extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(18))),
                         )),
+
+                    //FORGOT PASSWORD
                     Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
@@ -87,7 +105,8 @@ class SignInScreen extends StatelessWidget {
                                   color: CustomColors.customContrastColor,
                                   fontSize: 14),
                             ))),
-                    //divisor
+
+                    // DIVISOR
                     Row(
                       children: [
                         Expanded(
@@ -108,13 +127,22 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    // New User
+
+                    // NEW USER
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
+
+                          // CREATE ACCOUNT
                           child: OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (c){
+                                  return SignUpScreen();
+                                })
+                              );
+                            },
                             child: Text(
                               "Create Account",
                               style: TextStyle(fontSize: 14),
