@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quitanda/src/config/custom_colors.dart';
 import 'package:quitanda/src/models/item_model.dart';
+import 'package:quitanda/src/pages/products/product_screen.dart';
 import 'package:quitanda/src/services/util_services.dart';
 
 class ItemTile extends StatelessWidget {
@@ -14,48 +15,58 @@ class ItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Card(
-          elevation: 3,
-          shadowColor: Colors.grey.shade300,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // IMAGE
-                Expanded(child: Image.asset(item.imgUrl)),
+        // CONTENT
+        GestureDetector(
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (c){
+              return ProductScreen(item: item);
+            }));
+          },
+          child: Card(
+            elevation: 3,
+            shadowColor: Colors.grey.shade300,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // IMAGE
+                  Expanded(child: Hero(tag: item.imgUrl,child: Image.asset(item.imgUrl))),
 
-                // NAME
-                Text(
-                  item.itemName,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+                  // NAME
+                  Text(
+                    item.itemName,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
 
-                // PRICE
-                Row(
-                  children: [
-                    Text(
-                      utilServices.priceToCurrency(item.price),
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: CustomColors.customSwatchCOlor),
-                    ),
-                    Text(
-                      '/${item.unit}',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey.shade500),
-                    ),
-                  ],
-                ),
-              ],
+                  // PRICE
+                  Row(
+                    children: [
+                      Text(
+                        utilServices.priceToCurrency(item.price),
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: CustomColors.customSwatchCOlor),
+                      ),
+                      Text(
+                        '/${item.unit}',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey.shade500),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+
+        // ADD BUTTON
         Positioned(
             top: 4,
             right: 4,
