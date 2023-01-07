@@ -19,6 +19,7 @@ class _CartTabState extends State<CartTab> {
   void removeItemFromCart(CartItemModel cartItem) {
     setState(() {
       app_data.cartItems.remove(cartItem);
+      utilService.showToast(message: "Product ${cartItem.item.itemName} removed from cart");
     });
   }
 
@@ -83,6 +84,8 @@ class _CartTabState extends State<CartTab> {
                           showDialog(context: context, builder: (_){
                             return  PaymentDialog(order: app_data.orders.first,);
                           });
+                        }else{
+                          utilService.showToast(message: "Order not finished");
                         }
                       },
                       child: Text(
